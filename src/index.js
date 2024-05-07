@@ -1,14 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import GetTrackMeta from './GetTrackMeta';
 import reportWebVitals from './reportWebVitals';
+import Text from './Text';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Gotham, sans-serif',
+  },
+});
+
+export default function App() {
+  return (
+    <>
+      <React.StrictMode>
+        <ThemeProvider theme={theme}>
+          <Text />
+          <GetTrackMeta />
+        </ThemeProvider>
+      </React.StrictMode>
+    </>
+  )
+  
+}
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function
