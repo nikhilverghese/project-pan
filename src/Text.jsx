@@ -8,7 +8,7 @@ export default function Text() {
         <Typography variant="h3" color="white" fontWeight="bold">
                 Welcome To Project Pan.
             </Typography>
-            <Typography variant="h5" color="white">
+            <Typography variant="h5" color="white" style={{marginTop: 15, fontWeight:300}}>
                 A tool that allows users to download songs and get metadata. 
             </Typography>
         </div>   
