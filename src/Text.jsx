@@ -4,7 +4,7 @@ import { Typography} from '@mui/material';
 export default function Text() {
     return (
         <>
-        <div style={{ position: 'absolute', top: '66px', left: '55px' }}>
+        <div style={{ position: 'absolute', top: '40px', left: '55px' }}>
         <Typography variant="h3" color="white" fontWeight="bold">
                 Welcome To Project Pan.
             </Typography>
@@ -12,7 +12,7 @@ export default function Text() {
                 A tool that allows users to download songs and get metadata. 
             </Typography>
         </div>   
-        <div style={{ position: 'absolute', top: '948px', left: '600px' }}>
+        <div style={{ position: 'relative', top: '900px', display: 'flex', justifyContent: 'center'}}>
             <Typography variant="h6" color="white" fontWeight="light">
             Built by Musicians for Musicians
             </Typography>

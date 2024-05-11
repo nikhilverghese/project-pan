@@ -1,11 +1,12 @@
-import React from 'react';
+import {React, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import GetTrackMeta from './GetTrackMeta';
 import reportWebVitals from './reportWebVitals';
 import Text from './Text';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
+import Modules from './Modules';
+import NextDownload from './NextDownload';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -16,14 +17,25 @@ const theme = createTheme({
 });
 
 export default function App() {
+  const[track, setTrack] = useState(null);
+
+  const updateTrack = (track) => {
+    setTrack(track)
+  }
   return (
     <>
-      <React.StrictMode>
-        <ThemeProvider theme={theme}>
-          <Text />
-          <GetTrackMeta />
-        </ThemeProvider>
-      </React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <Text />
+      <GetTrackMeta trackSelected = {updateTrack}/>
+      {track && (
+        <>
+         <Modules trackFromDownload = {track}/>
+         <NextDownload toggle = {updateTrack}/>
+        </>
+       
+      )}
+    </ThemeProvider>
+              
     </>
   )
   

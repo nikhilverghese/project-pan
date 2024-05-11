@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {Paper} from '@mui/material/';
 import search from './icons/search.svg'
 import download from './icons/download.svg'
 import './GetTrackMeta.scss'
-export default function GetTrackMeta() {
+export default function GetTrackMeta({trackSelected}) {
     const [searchValue, setSearchValue] = useState('');
 
+    const updateTrackOnDownload = (track) => {
+        trackSelected(track)
+    }
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const url = searchValue;
-        const apiUrl = `http://localhost:3001/download-track?trackUrl=${encodeURIComponent(url)}`;
-        try {
-            const response = await axios.get(apiUrl, { responseType: 'blob' });
-            const blob = new Blob([response.data]);
-            const { data: { filename } } = response;
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = `${filename}.mp3`;
-            link.click();
-            console.log('Track downloaded successfully');
-        } catch (error) {
-            console.error('Error occurred while retriving track:', error);
-        }
+        updateTrackOnDownload(url.split('/').at(-1))
+        setSearchValue('')
+        // const apiUrl = `http://localhost:3001/download-track?trackUrl=${encodeURIComponent(url)}`;
+        // try {
+        //     axios.get(apiUrl, { 
+        //         responseType: 'blob' 
+        //     })
+        //     .then((obj) => {console.log(obj.data)})
+        //     .catch(err => console.log(err))
+        //     // const response = await axios.get(apiUrl, { responseType: 'blob' });
+        //     // const blob = new Blob([response.data]);
+        //     // const { data: { filename } } = response;
+        //     // const link = document.createElement('a');
+        //     // link.href = window.URL.createObjectURL(blob);
+        //     // link.download = `${filename}.mp3`;
+        //     // link.click();
+        //     // console.log('Track downloaded successfully');
+        // } catch (error) {
+        //     console.error('Error occurred while retriving track:', error);
+        // }
         
     };
 
     return (
-        <Paper elevation={2} style={{ width: 439, height: 131 , position: 'absolute', top: '50%', left: '536px', backgroundColor:'#262525', borderRadius: 16}} >
+        <Paper elevation={0} style={{ width: 440, height: 131 , position: 'absolute', top: '45%', left:'35.5%', backgroundColor:'#262525', borderRadius: 16}} >
             <div className="request">
             <div className="form" style={{marginLeft: 8, marginTop: -78}}>
             <form onSubmit={handleSubmit}>
@@ -48,9 +58,10 @@ export default function GetTrackMeta() {
                             fontSize: 18,
                             color: '#FFFFFF',
                             paddingLeft: 10,
-                            backgroundImage: `url(${search})`,
+                            backgroundImage: searchValue ? 'none' : `url(${search})`,
                             backgroundRepeat: 'no-repeat',
                             backgroundPosition: 370,
+                            textOverflow: 'ellipsis', 
                         }}
                     />  
                     <button 
@@ -61,6 +72,7 @@ export default function GetTrackMeta() {
                             marginLeft: 2, 
                             marginTop: 15, 
                             borderRadius: 12, 
+                            cursor: 'pointer',
                             border: 'none',
                             backgroundColor: '#5D2496',
                             fontSize: 22,

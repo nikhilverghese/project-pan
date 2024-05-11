@@ -20,7 +20,8 @@ app.get('/download-track', (req,res)=> {
         
         const match = stderr.match(/Item:\s*(.*)/i)
         const generatedFileName = match ? match[1] : 'default_filename.txt';
-        const downloadedFilePath = `/Users/nikhil/Programming/Project-Pan/project-pan/downloads/${generatedFileName}.mp3`;
+        const generatedFileNamePath = generatedFileName.replace(/ /g, "\\")
+        const downloadedFilePath = `/Users/nikhil/Programming/Project-Pan/project-pan/downloads/${generatedFileNamePath}.mp3`;
 
         if (error) {
             console.error(`Error executing command: ${error}`);
@@ -28,7 +29,8 @@ app.get('/download-track', (req,res)=> {
         }
         res.setHeader('Content-Disposition', `attachment; filename="${generatedFileName}.mp3"`);
         res.sendFile(downloadedFilePath);
-        res.status(200).send({ filename: generatedFileName });
+        console.log(downloadedFilePath);
+        res.status(200).send({ filename: downloadedFilePath });
     });
 })
 
