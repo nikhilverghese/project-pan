@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Paper} from '@mui/material/';
-import search from './icons/search.svg'
-import download from './icons/download.svg'
+import search from '../assets/icons/search.svg'
+import download from '../assets/icons/download.svg'
 import './GetTrackMeta.scss'
 export default function GetTrackMeta({trackSelected}) {
     const [searchValue, setSearchValue] = useState('');

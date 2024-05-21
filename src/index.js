@@ -1,12 +1,12 @@
 import {React, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import GetTrackMeta from './GetTrackMeta';
+import GetTrackMeta from './components/GetTrackMeta';
 import reportWebVitals from './reportWebVitals';
-import Text from './Text';
+import Text from './components/Text';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Modules from './Modules';
-import NextDownload from './NextDownload';
+import Modules from './components/Modules';
+import NextDownload from './components/NextDownload';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 

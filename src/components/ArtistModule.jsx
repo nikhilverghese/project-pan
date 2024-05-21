@@ -1,5 +1,5 @@
 import React from 'react'
-import useSpotifyData from './UseSpotifyData'
+import useSpotifyData from '../utilities/UseSpotifyData'
 import {Paper, Typography} from '@mui/material/';
 
 export default function ArtistModule({track}) {

@@ -1,7 +1,7 @@
 /* Black */
 @font-face {
     font-family: 'Gotham';
-    src: url('./font-family/Gotham-Black.otf') format('opentype');
+    src: url('../assets/font-family/Gotham-Black.otf') format('opentype');
     font-weight: 900; /* 'black' */
     font-style: normal;
 }
@@ -9,7 +9,7 @@
 /* Bold */
 @font-face {
     font-family: 'Gotham';
-    src: url('./font-family/Gotham-Bold.otf') format('opentype');
+    src: url('../assets/font-family/Gotham-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }
@@ -17,7 +17,7 @@
 /* Book */
 @font-face {
     font-family: 'Gotham';
-    src: url('./font-family/Gotham-Book.otf') format('opentype');
+    src: url('../assets/font-family/Gotham-Book.otf') format('opentype');
     font-weight: 400; /* 'normal' or 'book' */
     font-style: normal;
 }
@@ -25,7 +25,7 @@
 /* Medium */
 @font-face {
     font-family: 'Gotham';
-    src: url('./font-family/Gotham-Medium.otf') format('opentype');
+    src: url('../assets/font-family/Gotham-Medium.otf') format('opentype');
     font-weight: 500; /* 'medium' */
     font-style: normal;
 }
@@ -33,7 +33,7 @@
 /* Light */
 @font-face {
     font-family: 'Gotham';
-    src: url('./font-family/Gotham-Light.otf') format('opentype');
+    src: url('../assets/font-family/Gotham-Light.otf') format('opentype');
     font-weight: 300; /* 'light' */
     font-style: normal;
 }
@@ -41,7 +41,7 @@
 /* Extra Light */
 @font-face {
     font-family: 'Gotham';
-    src: url('./font-family/Gotham-XLight.otf') format('opentype');
+    src: url('../assets/font-family/Gotham-XLight.otf') format('opentype');
     font-weight: 200; /* 'extra-light' or 'ultra-light' */
     font-style: normal;
 }

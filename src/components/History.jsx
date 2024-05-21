@@ -1,5 +1,5 @@
 import React from 'react'
-import useSpotifyData from './UseSpotifyData'
+import useSpotifyData from '../utilities/UseSpotifyData'
 import { Paper } from '@mui/material'
 export default function History({track}) {
     const {trackData} = useSpotifyData(track)

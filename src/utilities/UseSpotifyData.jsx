@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getToken } from '../utilities/GetToken';
 
-const token = "BQAad3Z8SFfBuXTALKhzVJcCxB7GxqqGmEshebWpT-QW2gNLyLAIsgb_aZDA4gM2OAexquG8Wc1AgcSpCIe27nx75PMl2onRiTL83pJIw87xaZpnlSs";
 
 export default function useSpotifyData(track) {
+
     const [trackAudioData, setTrackAudioData] = useState(null);
     const [trackData, setTrackData] = useState(null);
     const [artistData, setArtistData] = useState(null);
@@ -12,7 +13,9 @@ export default function useSpotifyData(track) {
     useEffect(() => {
         const fetchData = async () => {
             if (!track) return;
+
             try {
+                const token = await getToken();
                 const trackResponse = await axios.get(`https://api.spotify.com/v1/tracks/${track}`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });

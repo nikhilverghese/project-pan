@@ -1,6 +1,6 @@
 import React from 'react'
 import {Paper, Typography} from '@mui/material/';
-import Download from './icons/download.svg'
+import Download from '../assets/icons/download.svg'
 export default function RetryDownload() {
     return (
         <Paper  elevation={2} style={{ width: 214, height: 107 , position: 'absolute', top: 680, left:295, backgroundColor:'#5D2496', borderRadius: 16}}>

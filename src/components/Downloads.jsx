@@ -1,14 +1,17 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Paper, Typography} from '@mui/material/';
 import './GetTrackMeta.scss'
-import library from './icons/library.svg'
-import useSpotifyData from './UseSpotifyData';
+import library from '../assets/icons/library.svg'
+import useSpotifyData from '../utilities/UseSpotifyData';
 import History from './History';
-import {getCache, addToCache} from './Cache'
+import {getCache, addToCache} from '../utilities/Cache'
 export default function Downloads({track}) {
     const [trackDetails, setTrackDetails] = useState(track)
     const { trackData, artistData } = useSpotifyData(trackDetails);
-    addToCache(trackDetails);
+    useEffect(()=> {
+        addToCache(trackDetails);
+    },[trackDetails])
+    
 
     return (
         <div>
@@ -35,12 +38,11 @@ export default function Downloads({track}) {
                     )}
             </div>
             <h1 style={{backgroundImage:`url(${library})`,backgroundRepeat:'no-repeat',paddingLeft:45,position: 'absolute', top: 125,left:20,fontFamily: 'Gotham', fontWeight: 'bold', color: '#A6A6A6', fontSize: 30 }}>Recent Downloads</h1>
-                
             </Paper>
             <div className='track-cache' style={{ height:240, width:440, zIndex: 1, position:'relative', top:355, left: 539,overflow: 'auto'}} >
                 {getCache() && getCache().toReversed().map((singleTrack,index)=> 
-                    index !== 0 ? (
-                        <button key={index} onClick={() => setTrackDetails(singleTrack)} style={{width: '370px', display: 'block', position: 'relative',backgroundColor:'white',cursor: 'pointer', border: 'none', marginTop: 10,marginBotton:10}}> 
+                    singleTrack !== trackDetails ? (
+                        <button key={index} onClick={() => setTrackDetails(singleTrack)} style={{width: '370px', display: 'block', position: 'relative',backgroundColor:'#262525',cursor: 'pointer', border: 'none', marginTop: 10,marginBotton:10}}> 
                             <div style={{ height: 68, position: 'relative' }}>
                                 <History track={singleTrack} />
                             </div>
@@ -57,7 +59,6 @@ export default function Downloads({track}) {
                    <span key = {index} style={{fontFamily: 'Gotham', fontWeight: '400', color: '#A6A6A6'}}>{genre.charAt(0).toUpperCase()+genre.slice(1)}{(index === artistData.genres.length-1 ? "":",")} </span>
                 )}
                 </div>
-                
             </Paper>
         </div>
         
