@@ -12,6 +12,9 @@ export default function MetadataDisplays({track}) {
         setNote(current);
     };
 
+    const handleCloseTranspose = (value) => {
+        setNote(value);
+    };
 
     return (
         <>
@@ -42,9 +45,10 @@ export default function MetadataDisplays({track}) {
         {note && (
                 <>
                     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1 }}></div>
-                    <Transposer initialKey={note} />
+                    <Transposer initialKey={note} resetNote={handleCloseTranspose}/>
                 </>
             )}
         </>
+        
     )
 }

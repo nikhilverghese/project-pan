@@ -4,7 +4,6 @@ import { getToken } from '../utilities/GetToken';
 
 
 export default function useSpotifyData(track) {
-
     const [trackAudioData, setTrackAudioData] = useState(null);
     const [trackData, setTrackData] = useState(null);
     const [artistData, setArtistData] = useState(null);
@@ -12,10 +11,18 @@ export default function useSpotifyData(track) {
     const [error, setError] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
-            if (!track) return;
-
+            if (!track) {
+                setTrackData(null);
+                setTrackAudioData(null);
+                setArtistData(null);
+                setRelatedArtistData(null);
+                setError(null)
+                return;
+            }
+            
             try {
                 const token = await getToken();
+                
                 const trackResponse = await axios.get(`https://api.spotify.com/v1/tracks/${track}`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
@@ -37,7 +44,6 @@ export default function useSpotifyData(track) {
                     setRelatedArtistData(relatedArtistResponse.data); 
                 }
             } catch (error) {
-                console.error("Could not fetch Spotify API:", error);
                 setError(error);
             }
         };

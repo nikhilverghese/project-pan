@@ -14,32 +14,33 @@ export default function Downloads({track}) {
     
 
     return (
-        <div>
-            <Paper  elevation={2} style={{ width: 440, height: 455 , position: 'absolute', top: 200, left:'35.5%', backgroundColor:'#262525', borderRadius: 16}}>
+        <div style={{display:'flex', marginLeft:537,width:"100%",flexDirection: "column", marginTop:168}}>
+            <Paper  elevation={2} style={{ display: "flex", width: 440, height: 455 , top: 200, backgroundColor:'#262525', borderRadius: 16,flexDirection: "column"}}>
             <div className="Song card">
                     {trackData && (
-                        <>
+                        <div style={{display:'flex', marginTop:20, marginLeft:20}}>
                             <img
                                 src={trackData.album.images[1].url}
                                 alt="Track Cover"
-                                style={{ width: '101px', height: '101px', position: 'absolute', top: 20, left: 20, borderRadius: 10 }}
+                                style={{ width: '101px', height: '101px', borderRadius: 10 }}
                             />
-                            <p style={{
-                                position: 'absolute', left: 140, top: -5, fontFamily: 'Gotham', fontWeight: 'bold', color: 'white', fontSize: 30, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100% - 160px)'}}>
-                                {trackData.name}
-                            </p>
-                            <p style={{ position: 'absolute', left: 140, top: 42, fontFamily: 'Gotham', fontWeight: '400', color: 'white', fontSize: 22,whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100% - 160px)' }}>
-                                {trackData.artists[0].name}
-                            </p>
-                            <p style={{ position: 'absolute', left: 140, top: 78, fontFamily: 'Gotham', fontWeight: '400', color: '#A6A6A6', fontSize: 18, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100% - 160px)'}}>
-                                {trackData.album.name}
-                            </p>
-                        </>
+                            <div style={{display:'flex', flexDirection: "column", marginLeft:20, marginTop:-27, width:"100%"}}>
+                                <p style={{
+                                    fontFamily: 'Gotham', fontWeight: 'bold', color: 'white', fontSize: 30, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                    {trackData.name}
+                                </p>
+                                <p style={{marginTop:-28,fontFamily: 'Gotham', fontWeight: '400', color: 'white', fontSize: 22,whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100%)' }}>
+                                    {trackData.artists[0].name}
+                                </p>
+                                <p style={{marginTop:-17,fontFamily: 'Gotham', fontWeight: '400', color: '#A6A6A6', fontSize: 18, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100%)'}}>
+                                    {trackData.album.name}
+                                </p>
+                            </div>
+                        </div>
                     )}
             </div>
-            <h1 style={{backgroundImage:`url(${library})`,backgroundRepeat:'no-repeat',paddingLeft:45,position: 'absolute', top: 125,left:20,fontFamily: 'Gotham', fontWeight: 'bold', color: '#A6A6A6', fontSize: 30 }}>Recent Downloads</h1>
-            </Paper>
-            <div className='track-cache' style={{ height:240, width:440, zIndex: 1, position:'relative', top:355, left: 539,overflow: 'auto'}} >
+            <h1 style={{backgroundImage:`url(${library})`,backgroundRepeat:'no-repeat',paddingLeft:45, marginTop:15,marginLeft:20, fontFamily: 'Gotham', fontWeight: 'bold', color: '#A6A6A6', fontSize: 30 }}>Recent Downloads</h1>
+            <div className='track-cache' style={{ height:240, width:440, zIndex: 1, marginTop:-10, overflow: 'auto'}} >
                 {getCache() && getCache().toReversed().map((singleTrack,index)=> 
                     singleTrack !== trackDetails ? (
                         <button key={index} onClick={() => setTrackDetails(singleTrack)} style={{width: '370px', display: 'block', position: 'relative',backgroundColor:'#262525',cursor: 'pointer', border: 'none', marginTop: 10,marginBotton:10}}> 
@@ -50,7 +51,8 @@ export default function Downloads({track}) {
                     ) : null
                 )}
             </div>
-            <Paper  elevation={2} style={{ width: 440, height: 107 , position: 'absolute', top: 680, left:'35.5%', backgroundColor:'#303030', borderRadius: 16}}>
+            </Paper>
+            <Paper  elevation={2} style={{ width: 440, height: 107 , position: 'absolute', top: 680, backgroundColor:'#303030', borderRadius: 16}}>
                 <Typography variant="h5" color="white" style={{position: 'absolute', left:19,top:12,fontWeight:'bold'}}>
                     Related Genres
                 </Typography>

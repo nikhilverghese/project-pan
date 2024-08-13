@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {Paper, Typography} from '@mui/material/'
 import Next from '../assets/icons/next.svg'
-export default function Transposer({initialKey}) {
+export default function Transposer({initialKey, resetNote}) {
     const songKey = initialKey;
     const [transposePos,setTransposePos] = useState(0);
     const [pressedButton,setPressedButton] = useState(null);
@@ -10,6 +10,10 @@ export default function Transposer({initialKey}) {
     const handleButtonClick = (note) => {
         calculateTransposition(note);
     };
+
+    const handleSetResetNote = (event) => {
+        resetNote(event);
+    }
 
 
     return (
@@ -68,10 +72,11 @@ export default function Transposer({initialKey}) {
             <Typography variant='h4' color='white' style={{position: 'absolute', top: 10, left:90,fontWeight:500}}>{transposePos}</Typography>
         </div>
         <Typography variant='body1' color='white' style={{position: 'absolute', top: 447, left:158, fontWeight: 300}}>Press the key you want to transpose to</Typography>
-        <button style={{position: 'absolute', left: '568px', top: '455px', cursor:'pointer', border:'none',background:'none'}}>
+        <button style={{position: 'absolute', left: '568px', top: '455px', cursor:'pointer', border:'none',background:'none'}} onClick={()=>handleSetResetNote(null)}>
             <img src={Next} alt="next" style={{position:'relative'}}/>
         </button>
         </Paper>
+        
         </>
     )
 
