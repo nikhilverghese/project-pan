@@ -3,20 +3,26 @@ import {Paper} from '@mui/material/';
 import search from '../assets/icons/search.svg'
 import download from '../assets/icons/download.svg'
 import './GetTrackMeta.scss'
-export default function GetTrackMeta({trackSelected}) {
+export default function GetTrackMeta({trackSelected,buttonPressed,inDownload}) {
     const [searchValue, setSearchValue] = useState('');
-
     const updateTrackOnDownload = (track) => {
         trackSelected(track)
+    }
+    const updateButton = () => {
+        buttonPressed(true)
     }
     
     const handleSubmit = async (event) => {
         event.preventDefault();
         const url = searchValue;
-        updateTrackOnDownload(url.split('/').at(-1))
-        setSearchValue('')
+        updateTrackOnDownload(url.split('/').at(-1));
+        updateButton();
+        setSearchValue('');
         
     };
+
+
+      
 
     return (
         <div style={{display:'flex', alignItems: 'center',justifyContent: 'center'}}>
@@ -55,7 +61,7 @@ export default function GetTrackMeta({trackSelected}) {
                             marginLeft: 2, 
                             marginTop: 15, 
                             borderRadius: 12, 
-                            cursor: 'pointer',
+                            cursor: inDownload ? '' : 'pointer',
                             border: 'none',
                             backgroundColor: '#5D2496',
                             fontSize: 22,
@@ -66,7 +72,9 @@ export default function GetTrackMeta({trackSelected}) {
                             backgroundRepeat: 'no-repeat',
                             backgroundPosition: 255,
                             paddingRight:45
-                        }}>Download</button>
+                        }}
+                        disabled={inDownload}
+                        >Download</button>
             </form>
         </div>  
        </div>

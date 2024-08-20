@@ -3,34 +3,36 @@ const path = require('path');
 const { exec } = require('child_process');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
-
 const app = express();
-
+const fs = require('fs');
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 app.get('/download-track', (req,res)=> {
     const { trackUrl } = req.query;
-    if (!trackUrl || typeof trackUrl !== 'string' || !/^https?:\/\//.test(trackUrl)) {
+    const fullurl = `https://open.spotify.com/track/${trackUrl.split('?')[0]}`;
+    if (!trackUrl || typeof trackUrl !== 'string') {
         return res.status(400).send('Invalid track URL');
     }
-    const command = `spotifydl "${trackUrl}" --output /Users/nikhil/Programming/Project-Pan/project-pan/downloads --output-only`;
+    const outputDir = '/Users/nikhil/Documents/Project-Pan-Samples';
+    const command = `spotdl "${fullurl}" --output ${outputDir}`;
     exec(command, (error, stdout, stderr) => {
-        
-        const match = stderr.match(/Item:\s*(.*)/i)
-        const generatedFileName = match ? match[1] : 'default_filename.txt';
-        const generatedFileNamePath = generatedFileName.replace(/ /g, "\\")
-        const downloadedFilePath = `/Users/nikhil/Programming/Project-Pan/project-pan/downloads/${generatedFileNamePath}.mp3`;
-
-        if (error) {
-            console.error(`Error executing command: ${error}`);
-            return res.status(500).send('Error executing command');
-        }
-        res.setHeader('Content-Disposition', `attachment; filename="${generatedFileName}.mp3"`);
-        res.sendFile(downloadedFilePath);
-        console.log(downloadedFilePath);
-        res.status(200).send({ filename: downloadedFilePath });
+        console.log("user requested")
+        console.log(stdout);
+        const match = stdout.match(/Downloaded "([^"]+)"/) || stdout.match(/Skipping (.*?) \(file already exists\)/);
+        const generatedFileName = match[1]+'.mp3';
+        const generatedFileNamePath = generatedFileName;
+        const downloadedFilePath = path.join(outputDir, generatedFileNamePath);
+        res.setHeader('Content-Disposition', `attachment; filename="${generatedFileName}"`);
+        res.setHeader('track-name', generatedFileName);
+        setTimeout(() => {
+            res.download(downloadedFilePath, (err) => {
+                if (err) {
+                    console.error('Error downloading file:', err);
+                    res.status(500).send('Error downloading file');
+                }
+            });
+        }, 1000);
     });
 })
 

@@ -2,17 +2,18 @@ import {useEffect, useState} from 'react';
 import {Paper, Typography} from '@mui/material/';
 import './GetTrackMeta.scss'
 import library from '../assets/icons/library.svg'
-import useSpotifyData from '../utilities/UseSpotifyData';
 import History from './History';
 import {getCache, addToCache} from '../utilities/Cache'
-export default function Downloads({track}) {
+export default function Downloads({track,updateNewTrack,trackData,artistData}) {
     const [trackDetails, setTrackDetails] = useState(track)
-    const { trackData, artistData } = useSpotifyData(trackDetails);
     useEffect(()=> {
         addToCache(trackDetails);
     },[trackDetails])
-    
 
+    const changeTrack = (newTrack) => {
+        updateNewTrack(newTrack);
+        setTrackDetails(newTrack)
+    }
     return (
         <div style={{display:'flex', marginLeft:537,width:"100%",flexDirection: "column", marginTop:168}}>
             <Paper  elevation={2} style={{ display: "flex", width: 440, height: 455 , top: 200, backgroundColor:'#262525', borderRadius: 16,flexDirection: "column"}}>
@@ -26,13 +27,13 @@ export default function Downloads({track}) {
                             />
                             <div style={{display:'flex', flexDirection: "column", marginLeft:20, marginTop:-27, width:"100%"}}>
                                 <p style={{
-                                    fontFamily: 'Gotham', fontWeight: 'bold', color: 'white', fontSize: 30, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                    fontFamily: 'Gotham', fontWeight: 'bold', color: 'white', fontSize: 30, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width:'280px'}}>
                                     {trackData.name}
                                 </p>
-                                <p style={{marginTop:-28,fontFamily: 'Gotham', fontWeight: '400', color: 'white', fontSize: 22,whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100%)' }}>
+                                <p style={{marginTop:-28,fontFamily: 'Gotham', fontWeight: '400', color: 'white', fontSize: 22,whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: '280px' }}>
                                     {trackData.artists[0].name}
                                 </p>
-                                <p style={{marginTop:-17,fontFamily: 'Gotham', fontWeight: '400', color: '#A6A6A6', fontSize: 18, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: 'calc(100%)'}}>
+                                <p style={{marginTop:-17,fontFamily: 'Gotham', fontWeight: '400', color: '#A6A6A6', fontSize: 18, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width: '280px'}}>
                                     {trackData.album.name}
                                 </p>
                             </div>
@@ -43,7 +44,7 @@ export default function Downloads({track}) {
             <div className='track-cache' style={{ height:240, width:440, zIndex: 1, marginTop:-10, overflow: 'auto'}} >
                 {getCache() && getCache().toReversed().map((singleTrack,index)=> 
                     singleTrack !== trackDetails ? (
-                        <button key={index} onClick={() => setTrackDetails(singleTrack)} style={{width: '370px', display: 'block', position: 'relative',backgroundColor:'#262525',cursor: 'pointer', border: 'none', marginTop: 10,marginBotton:10}}> 
+                        <button key={index} onClick={() => changeTrack(singleTrack)} style={{width: '370px', display: 'block', position: 'relative',backgroundColor:'#262525',cursor: 'pointer', border: 'none', marginTop: 10,marginBotton:10}}> 
                             <div style={{ height: 68, position: 'relative' }}>
                                 <History track={singleTrack} />
                             </div>

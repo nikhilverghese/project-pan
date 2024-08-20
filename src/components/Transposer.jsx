@@ -18,7 +18,7 @@ export default function Transposer({initialKey, resetNote}) {
 
     return (
         <>
-        <Paper  elevation={0} style={{ zIndex: 2,width: 622, height: 504 , position: 'relative',backgroundColor: '#262626', left: 445, top: -100, borderRadius: 16}} >
+        <Paper  elevation={0} style={{ zIndex: 2,width: 622, height: 504 , position: 'relative',backgroundColor: '#262626', left: 445, top: -500, borderRadius: 16}} >
         <Typography variant='h3' color='white' style={{position: 'absolute', top: 27, left:32, fontWeight: 600}}>Transpose</Typography>
         <div className="Piano">
             {['C', 'D', 'E', 'F', 'G', 'A', 'B'].map((note) => 

@@ -1,9 +1,8 @@
 import React from 'react'
-import useSpotifyData from '../utilities/UseSpotifyData'
 import {Paper, Typography} from '@mui/material/';
 
-export default function ArtistModule({track}) {
-    const {relatedArtistData} = useSpotifyData(track);
+export default function ArtistModule({track,relatedArtistData}) {
+    // const {relatedArtistData} = useSpotifyData(track);
     return (
         <div>
 

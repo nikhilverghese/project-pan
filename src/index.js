@@ -7,6 +7,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Modules from './components/Modules';
 import NextDownload from './components/NextDownload';
 import UseSpotifyData from './utilities/UseSpotifyData'
+import downloadFile from './utilities/DownloadFile'
+import DownloadAnimation from './utilities/DownloadAnimation'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -16,25 +18,42 @@ const theme = createTheme({
   },
 });
 
-
-
 export default function App() {
   const [track, setTrack] = useState(null);
   const { trackData,error } = UseSpotifyData(track); 
+  const [submit, updateSubmit] = useState(false);
+  const [downloadStatus,setDownloadStatus] = useState(0);
   const updateTrack = (newTrack) => {
     if(newTrack !== track) {
       setTrack(newTrack);
+      setDownloadStatus(0);
     }
   };
+
+  useEffect(() => {
+    if(submit && trackData !== null) {
+      setDownloadStatus(50)
+      const download = async () => {
+        await downloadFile(track, trackData);
+        setDownloadStatus(100);
+      }
+      download();
+    //   setTimeout(() => {
+    //     setDownloadStatus(100);
+    // }, 5000);
+      
+    }
+  }, [trackData]); 
+
   console.log(error);
   return (
     <>
       <ThemeProvider theme={theme}>
         <Text />
-        {trackData == null && <GetTrackMeta trackSelected={updateTrack} />}
-        {trackData &&
+        {downloadStatus !== 100 && <GetTrackMeta trackSelected={updateTrack} buttonPressed = {updateSubmit} inDownload={downloadStatus !== 0}/>}
+        {trackData && downloadStatus===100 &&
           <>
-            <Modules trackFromDownload={track} />
+            <Modules trackFromDownload={track}/>
             <NextDownload toggle={updateTrack} />
           </>
           }
@@ -43,6 +62,10 @@ export default function App() {
           (<p style={{ display: 'flex', color: 'white', justifyContent: 'center', marginTop: 15 }}>
             Not a valid Spotify link
           </p>) 
+        }
+        {
+          downloadStatus > 0 && downloadStatus < 100 &&
+          <DownloadAnimation />
         }
       </ThemeProvider>
     </>
