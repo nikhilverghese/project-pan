@@ -1,5 +1,6 @@
 import {React, useState,useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import GetTrackMeta from './components/GetTrackMeta';
 import Text from './components/Text';
@@ -9,6 +10,9 @@ import NextDownload from './components/NextDownload';
 import UseSpotifyData from './utilities/UseSpotifyData'
 import downloadFile from './utilities/DownloadFile'
 import DownloadAnimation from './utilities/DownloadAnimation'
+import { initializeApp } from 'firebase/app';
+import { getAuth } from "firebase/auth";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -17,6 +21,18 @@ const theme = createTheme({
     fontFamily: 'Gotham, sans-serif',
   },
 });
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD7qcXACmo46OnWctYpYHgF6GLWOAM8VoU",
+  authDomain: "project-pan-f2d92.firebaseapp.com",
+  projectId: "project-pan-f2d92",
+  storageBucket: "project-pan-f2d92.appspot.com",
+  messagingSenderId: "916616314590",
+  appId: "1:916616314590:web:e8624b494a46c69a1b0c4f",
+  measurementId: "G-24JT73Z3JS"
+};
+
+const app = initializeApp(firebaseConfig);
 
 export default function App() {
   const [track, setTrack] = useState(null);
@@ -40,12 +56,10 @@ export default function App() {
       download();
     //   setTimeout(() => {
     //     setDownloadStatus(100);
-    // }, 5000);
+    // }, 1000);
       
     }
   }, [trackData]); 
-
-  console.log(error);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -72,5 +86,8 @@ export default function App() {
   );
 }
 root.render(
-  <App />
+  <Router>
+    <App />
+  </Router>
+  
 );

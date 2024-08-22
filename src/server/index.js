@@ -19,8 +19,11 @@ app.get('/download-track', (req,res)=> {
     exec(command, (error, stdout, stderr) => {
         console.log("user requested")
         console.log(stdout);
-        const match = stdout.match(/Downloaded "([^"]+)"/) || stdout.match(/Skipping (.*?) \(file already exists\)/);
-        const generatedFileName = match[1]+'.mp3';
+        //const match = stdout.match(/Downloaded "([^"]+)"/) || stdout.match(/Skipping (.*?) \(file already exists\)/);
+        const artistsHeader = req.headers['x-artists'];
+        const trackHeader = req.headers['track-name'];
+        const generatedFileName = `${artistsHeader} - ${trackHeader}.mp3`;
+        //const generatedFileName = match[1]+'.mp3';
         const generatedFileNamePath = generatedFileName;
         const downloadedFilePath = path.join(outputDir, generatedFileNamePath);
         res.setHeader('Content-Disposition', `attachment; filename="${generatedFileName}"`);

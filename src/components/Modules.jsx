@@ -15,7 +15,7 @@ export default function Modules({trackFromDownload}) {
             <Downloads track = {updateTrack} updateNewTrack = {changeTrack} trackData={trackData} artistData={artistData}/>
             <MetadataDisplays track = {updateTrack} trackAudioData={trackAudioData}/>
             <ArtistModule track = {updateTrack} relatedArtistData={relatedArtistData}/>
-            <RetryDownload />
+            <RetryDownload track = {updateTrack} trackData={trackData} />
         </>
     )
 }

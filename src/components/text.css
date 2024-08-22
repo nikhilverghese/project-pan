@@ -15,3 +15,8 @@
         transform: translateX(0);
     }
 }
+
+.login:hover,
+.signup:hover {
+    background-color: #4a4a4a !important;
+}
