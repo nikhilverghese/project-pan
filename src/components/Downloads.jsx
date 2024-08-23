@@ -3,13 +3,22 @@ import {Paper, Typography} from '@mui/material/';
 import './GetTrackMeta.scss'
 import library from '../assets/icons/library.svg'
 import History from './History';
-import {getCache, addToCache} from '../utilities/Cache'
+import {getCache, addToCache,clearCache} from '../utilities/Cache'
+import "./Downloads.css"
+
 export default function Downloads({track,updateNewTrack,trackData,artistData}) {
     const [trackDetails, setTrackDetails] = useState(track.split("=")[0]);
     const [newTrack, setNewTrack] = useState(null);
-    useEffect(()=> {
-        addToCache(trackDetails);
-    },[trackDetails])
+    const [cache, setCache] = useState([]);
+    const [isCacheCleared, setIsCacheCleared] = useState(false);
+   useEffect(() => {
+        const updateCache = async () => {
+            await addToCache(trackDetails);
+            const updatedCache = await getCache();
+            setCache(updatedCache);
+        };
+        updateCache();
+    }, [trackDetails]);
 
     useEffect(()=> {
         const changeTrack = (newTrack) => {
@@ -21,8 +30,21 @@ export default function Downloads({track,updateNewTrack,trackData,artistData}) {
         }
     },[newTrack, updateNewTrack])
 
+    useEffect(() => {
+        const updateCache = async () => {
+            setCache([]);
+            const updatedCache = await getCache();
+        };
+        updateCache();
+    }, [isCacheCleared]);
+
+    const triggerClearCache = async () => {
+        await clearCache();
+        setIsCacheCleared((prev) => !prev);
+    }
+
     return (
-        <div style={{display:'flex', marginLeft:537,flexDirection: "column", marginTop:168}}>
+        <div style={{display:'flex', marginLeft:537,flexDirection: "column", marginTop:152}}>
             <Paper  elevation={2} style={{ display: "flex", width: 440, height: 455 , top: 200, backgroundColor:'#262525', borderRadius: 16,flexDirection: "column"}}>
             <div className="Song card">
                     {trackData && (
@@ -49,11 +71,19 @@ export default function Downloads({track,updateNewTrack,trackData,artistData}) {
             </div>
             <h1 style={{backgroundImage:`url(${library})`,backgroundRepeat:'no-repeat',paddingLeft:45, marginTop:15,marginLeft:20, fontFamily: 'Gotham', fontWeight: 'bold', color: '#A6A6A6', fontSize: 30 }}>Recent Downloads</h1>
             <div className='track-cache' style={{ height:240, width:440, zIndex: 1, marginTop:-10, overflow: 'auto'}} >
-                {getCache() && getCache().toReversed().map((singleTrack,index)=> {
+                {cache.length > 0 && cache.toReversed().map((singleTrack,index)=> {
                     return singleTrack !== trackDetails ? (
                         <History track={singleTrack} key={index} updateTrack={setNewTrack}/>
                     ) : null
             })}
+            {cache.length > 1 && 
+                <div style={{display:"flex",justifyContent:"center"}}>
+                    <button className="clear" onClick={triggerClearCache} style={{backgroundColor:"#474747",border:"none",borderRadius:"6px",fontFamily:"Gotham",color:"white",padding:"5px",fontWeight:500, marginTop:10, paddingLeft:7,paddingRight:7,cursor:"pointer"}}>
+                    Clear Recents
+                    </button>
+                </div>
+                
+            }
             </div>
             </Paper>
             <Paper  elevation={2} style={{ width: 440, height: 107 , position: 'absolute', top: 680, backgroundColor:'#303030', borderRadius: 16}}>

@@ -1,6 +1,6 @@
 import {React, useState,useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import GetTrackMeta from './components/GetTrackMeta';
 import Text from './components/Text';
@@ -10,35 +10,23 @@ import NextDownload from './components/NextDownload';
 import UseSpotifyData from './utilities/UseSpotifyData'
 import downloadFile from './utilities/DownloadFile'
 import DownloadAnimation from './utilities/DownloadAnimation'
-import { initializeApp } from 'firebase/app';
-import { getAuth } from "firebase/auth";
+import Login from './components/Login'
+import Register from './components/Register'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
 const theme = createTheme({
   typography: {
     fontFamily: 'Gotham, sans-serif',
   },
 });
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD7qcXACmo46OnWctYpYHgF6GLWOAM8VoU",
-  authDomain: "project-pan-f2d92.firebaseapp.com",
-  projectId: "project-pan-f2d92",
-  storageBucket: "project-pan-f2d92.appspot.com",
-  messagingSenderId: "916616314590",
-  appId: "1:916616314590:web:e8624b494a46c69a1b0c4f",
-  measurementId: "G-24JT73Z3JS"
-};
-
-const app = initializeApp(firebaseConfig);
 
 export default function App() {
   const [track, setTrack] = useState(null);
   const { trackData,error } = UseSpotifyData(track); 
   const [submit, updateSubmit] = useState(false);
   const [downloadStatus,setDownloadStatus] = useState(0);
+
   const updateTrack = (newTrack) => {
     if(newTrack !== track) {
       setTrack(newTrack);
@@ -49,14 +37,14 @@ export default function App() {
   useEffect(() => {
     if(submit && trackData !== null) {
       setDownloadStatus(50)
-      const download = async () => {
-        await downloadFile(track, trackData);
+      // const download = async () => {
+      //   await downloadFile(track, trackData);
+      //   setDownloadStatus(100);
+      // }
+      // download();
+      setTimeout(() => {
         setDownloadStatus(100);
-      }
-      download();
-    //   setTimeout(() => {
-    //     setDownloadStatus(100);
-    // }, 1000);
+    }, 1000);
       
     }
   }, [trackData]); 
@@ -87,7 +75,11 @@ export default function App() {
 }
 root.render(
   <Router>
-    <App />
+    <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
   </Router>
   
 );

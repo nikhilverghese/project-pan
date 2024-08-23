@@ -21,9 +21,6 @@ export default function GetTrackMeta({trackSelected,buttonPressed,inDownload}) {
         
     };
 
-
-      
-
     return (
         <div style={{display:'flex', alignItems: 'center',justifyContent: 'center'}}>
             <Paper elevation={0} style={{ width: 440, height: 131, marginTop:300, backgroundColor:'#262525', borderRadius: 16, display:"flex"}} >
