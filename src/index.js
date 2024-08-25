@@ -12,7 +12,7 @@ import downloadFile from './utilities/DownloadFile'
 import DownloadAnimation from './utilities/DownloadAnimation'
 import Login from './components/Login'
 import Register from './components/Register'
-
+import ForgotPassword from './components/ForgotPassword'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme({
   typography: {
@@ -37,14 +37,15 @@ export default function App() {
   useEffect(() => {
     if(submit && trackData !== null) {
       setDownloadStatus(50)
-      // const download = async () => {
-      //   await downloadFile(track, trackData);
-      //   setDownloadStatus(100);
-      // }
-      // download();
-      setTimeout(() => {
+      
+      const download = async () => {
+        await downloadFile(track, trackData);
         setDownloadStatus(100);
-    }, 1000);
+      }
+      download();
+    //   setTimeout(() => {
+    //     setDownloadStatus(100);
+    // }, 1000);
       
     }
   }, [trackData]); 
@@ -79,6 +80,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reset" element={<ForgotPassword />} />
       </Routes>
   </Router>
   

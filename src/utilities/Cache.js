@@ -27,10 +27,6 @@ export async function addToCache(item) {
     const formattedValue = item.split('=').at(0)
 
     if(uid!==null) {
-        const existsInDb = await hasInDb(formattedValue);
-        if(existsInDb) {
-            return;
-        }
         value++;
         await addToDb(uid,formattedValue,value,false)
         return formattedValue;
@@ -45,6 +41,10 @@ export async function addToCache(item) {
 }
 
 const addToDb = async (uuid,id,index,activity) => {
+    const existsInDb = await hasInDb(id);
+    if(existsInDb) {
+        return;
+    }
     try {
         await addDoc(collection(db, "cache"), {
           uid: uuid,
@@ -90,7 +90,7 @@ const convertCacheToDb = async (userUid) => {
     if(uid !== null && cache.size > 0) {
         try {
             for (const [key, value] of cache.entries()) {
-              await addToDb(userUid, key, value);
+              await addToDb(userUid, key, value,false);
             }
             cache.clear(); 
         } catch (e) {
@@ -100,7 +100,6 @@ const convertCacheToDb = async (userUid) => {
 }
 
 export const clearCache = async () => {
-    console.log("clicked")
     if(uid !== null) {
         const userCacheQuery = query(collection(db,"cache"),where("uid","==",uid), where("cleared","==",false));
         const querySnapshot = await getDocs(userCacheQuery);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default async function downloadFile(url,trackData) {
-    const apiUrl = `http://localhost:3001/download-track?trackUrl=${encodeURIComponent(url)}`;
+    const apiUrl = `https://project-pan-server-433428024468.us-east1.run.app/download-track?trackUrl=${encodeURIComponent(url)}`;
     
     
     const getArtists = (trackData) => {
