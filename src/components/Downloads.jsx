@@ -44,7 +44,7 @@ export default function Downloads({track,updateNewTrack,trackData,artistData}) {
     }
 
     return (
-        <div style={{display:'flex', marginLeft:537,flexDirection: "column", marginTop:152}}>
+        <div style={{display:'flex', alignItems:"center",flexDirection: "column", marginTop:152}}>
             <Paper  elevation={2} style={{ display: "flex", width: 440, height: 455 , top: 200, backgroundColor:'#262525', borderRadius: 16,flexDirection: "column"}}>
             <div className="Song card">
                     {trackData && (

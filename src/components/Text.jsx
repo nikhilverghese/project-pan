@@ -48,7 +48,7 @@ export default function Text() {
             {subMessage}
         </Typography>
         </div>   
-        <div style={{ position: 'relative', top: '900px', display: 'flex', justifyContent: 'center'}}>
+        <div style={{ position: 'relative', top: '900px', display: 'flex', justifyContent:'center'}}>
             <Typography variant="h6" color="white" fontWeight="light">
             Built by Musicians for Musicians
             </Typography>

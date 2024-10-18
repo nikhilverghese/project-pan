@@ -3,6 +3,7 @@ import {Paper} from '@mui/material/';
 import search from '../assets/icons/search.svg'
 import download from '../assets/icons/download.svg'
 import './GetTrackMeta.scss'
+import './buttonHover.css'
 export default function GetTrackMeta({trackSelected,buttonPressed,inDownload}) {
     const [searchValue, setSearchValue] = useState('');
     const updateTrackOnDownload = (track) => {
@@ -51,6 +52,7 @@ export default function GetTrackMeta({trackSelected,buttonPressed,inDownload}) {
                         }}
                     />  
                     <button 
+                    className='button'
                         type="submit" 
                         style={{
                             width: 416,
