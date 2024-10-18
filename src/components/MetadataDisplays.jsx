@@ -23,16 +23,16 @@ export default function MetadataDisplays({track,trackAudioData}) {
                 <Typography variant='h5' color='white' style={{fontWeight: 300,marginTop:"-35px"}}>
                 The Key Is
                 </Typography>
-                <Typography variant='h1' color='white' style={{fontWeight: 700,marginTop:"10px"}}>
+                <Typography variant='h1' color='white' style={{fontWeight: 700,marginTop:"15px"}}>
                 {songKey}
                 </Typography>
             </div>
         </button>
         <Paper  elevation={2} style={{ width: 214, height: 214 , display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center", backgroundColor:'#484848', marginBottom: 26, borderRadius: 16}}>
-            <Typography variant='h5' color='white' style={{fontWeight: 300}}>
+            <Typography variant='h5' color='white' style={{fontWeight: 300,marginTop:"-25px"}}>
             With BPM Of
             </Typography>
-            <Typography variant='h1' color='white' style={{fontWeight: 700, width:'100%',display: 'flex', justifyContent: 'center'}}>
+            <Typography variant='h1' color='white' style={{fontWeight: 700,marginTop:"20px",width:'100%',display: 'flex', justifyContent: 'center'}}>
             {trackAudioData && (Math.trunc(trackAudioData.tempo))}
             </Typography>
         </Paper>

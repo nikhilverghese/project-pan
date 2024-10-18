@@ -4,7 +4,7 @@ import {Paper, Typography} from '@mui/material/';
 export default function ArtistModule({track,relatedArtistData}) {
     // const {relatedArtistData} = useSpotifyData(track);
     return (
-        <div style={{display: 'flex', justifyContent:"center",marginLeft:"-710px",marginTop:"-589px"}}>
+        <div style={{display: 'flex', justifyContent:"center",marginLeft:"-710px",marginTop:"-587px"}}>
 
         <Paper  elevation={2} style={{ width: 214, height: 455 , position: 'absolute', backgroundColor:'#2B2B2B', borderRadius: 16}}>
             <Typography variant='h5' color='white' style={{ position: 'absolute', width:'100%',display:'flex',justifyContent:'center',top:10, fontWeight:'bold'}}>
