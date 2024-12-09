@@ -1,5 +1,8 @@
 # Project Pan
 
+**update** Spotify has made major changes to its API and archived major features that this app uses to work properly. Unfortunately what this means is that project pan will not be functional until they either revert these changes, or I have the time to figure out a solution to this. rip project pan
+
+
 **Project Pan** is a centralized database for music projects that enables users to store and manage data about various songs, including their location, key, genre, BPM, and custom notes. The project is built using React for the frontend and SQLite for the backend.
 
 ## Table of Contents
